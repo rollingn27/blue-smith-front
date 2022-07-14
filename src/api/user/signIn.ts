@@ -2,7 +2,7 @@ import client from "../client"
 import { User } from "../type"
 
 export async function signIn({ email, password }: signInInput) {
-  const response = await client.post<signinResult>('/user/signin', { email, password })
+  const response = await client.post<signinResult>('/user/signIn', { email, password })
   return response.data
 }
 
@@ -12,5 +12,6 @@ export type signInInput = {
 }
 
 export type signinResult = {  
-  user: User
+  email: string
+  nickname: string  
 }

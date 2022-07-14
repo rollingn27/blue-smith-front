@@ -28,44 +28,41 @@ export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [form, setForm] = useState();
-  const notify = () => toast("Wow so easy!");
-  const mutation = useMutation(signIn,
-    {
-      onSuccess: (res) => {
-        toast.success('Login Success', {
-          // type: 'success',
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000,
-          pauseOnHover: false,
-          pauseOnFocusLoss: false,
-          hideProgressBar: true,
-        });
-        console.log('ㅇㅇㅇ');
-        qc.setQueryData('user', res.user);
-      },
-      onError: (err: AxiosError) => {
-        // setLoginError(err.response?.data?.message)
-        toast.success('Login Success', {
-          // type: 'success',
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000,
-          pauseOnHover: false,
+  const mutation = useMutation(signIn, {
+    onSuccess: (res) => {
+      toast.success('Login Success', {
+        // type: 'success',
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+        pauseOnHover: false,
         pauseOnFocusLoss: false,
-          hideProgressBar: true,
-        });
-      },
-      onSettled:() => {
-        toast.success('Login Success', {
-          // type: 'success',
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000,
-          pauseOnHover: false,
-        pauseOnFocusLoss: false,
-          hideProgressBar: true,
-        });
-      }
+        hideProgressBar: true,
+      });
+      console.log('ㅇㅇㅇ');
+      qc.setQueryData('user', res.user);
     },
-  );
+    onError: (err: AxiosError) => {
+      // setLoginError(err.response?.data?.message)
+      toast.success('Login Success', {
+        // type: 'success',
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+        pauseOnHover: false,
+        pauseOnFocusLoss: false,
+        hideProgressBar: true,
+      });
+    },
+    onSettled: () => {
+      toast.success('Login Success', {
+        // type: 'success',
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+        pauseOnHover: false,
+        pauseOnFocusLoss: false,
+        hideProgressBar: true,
+      });
+    },
+  });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     toast.success('Login Success', {
@@ -73,14 +70,14 @@ export default function SignIn() {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 2000,
       pauseOnHover: false,
-    pauseOnFocusLoss: false,
+      pauseOnFocusLoss: false,
       hideProgressBar: true,
     });
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     setEmail(data.get('email') as string);
     setPassword(data.get('password') as string);
-    mutation.mutate({email, password});
+    mutation.mutate({ email, password });
     console.log({
       email: data.get('email'),
       password: data.get('password'),
@@ -89,7 +86,6 @@ export default function SignIn() {
 
   return (
     <>
-    <button onClick={notify}>Notify!</button>
       <Header />
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">

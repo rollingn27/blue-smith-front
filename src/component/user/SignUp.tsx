@@ -49,30 +49,18 @@ export default function SignUp() {
         hideProgressBar: true,
       });
     },
-    onSettled: () => {
-      toast.success('Login Success', {
-        // type: 'success',
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 2000,
-        pauseOnHover: false,
-        pauseOnFocusLoss: false,
-        hideProgressBar: true,
-      });
-    },
+    onSettled: () => {},
   });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    setEmail('sdfadfsa');
     event.preventDefault();
 
     const data = new FormData(event.currentTarget);
-
-    setEmail(data.get("email") as string);
+    // setEmail('aaaa');
+    // setEmail(data.get('email') as string);
+    console.log(email);
     mutation.mutate({ email, nickname, password, passwordConfirm });
-    
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
   };
 
   return (

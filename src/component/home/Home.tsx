@@ -8,12 +8,10 @@ const theme = createTheme();
 type homeProps = {};
 
 const Home = ({}: homeProps) => {
-  
   return (
-    <>      
+    <>
       <ThemeProvider theme={theme}>
         <Header />
-        <div>테스트 rolling</div>
         <Copyright sx={{ mt: 5 }} />
       </ThemeProvider>
     </>

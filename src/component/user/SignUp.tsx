@@ -14,17 +14,18 @@ import * as React from 'react';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { toast } from 'react-toastify';
-import { signUp } from '../../api/user/signup';
+import { signUp } from '../../api/user/signUp';
+
 import Copyright from '../home/Copyright';
 import Header from '../home/Header';
 
 const theme = createTheme();
 
 export default function SignUp() {
-  const [email, setEmail] = useState('');
-  const [nickname, setNickname] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [email, setEmail] = useState('n28kek@hanmail.net');
+  const [nickname, setNickname] = useState('롤링');
+  const [password, setPassword] = useState('111');
+  const [passwordConfirm, setPasswordConfirm] = useState('111');
 
   const mutation = useMutation(signUp, {
     onSuccess: (res) => {
@@ -48,32 +49,18 @@ export default function SignUp() {
         hideProgressBar: true,
       });
     },
-    onSettled: () => {
-      toast.success('Login Success', {
-        // type: 'success',
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 2000,
-        pauseOnHover: false,
-        pauseOnFocusLoss: false,
-        hideProgressBar: true,
-      });
-    },
+    onSettled: () => {},
   });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    setEmail('sdfadfsa');
     event.preventDefault();
 
     const data = new FormData(event.currentTarget);
-    setEmail('있는척');
-    setNickname('롤링');
-    setPassword('111');
-    setPasswordConfirm('112');
-
-    mutation.mutate({ email: 'email1123', nickname: '롤링', password: '111', passwordConfirm: '112' });
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    // setEmail('aaaa');
+    // setEmail(data.get('email') as string);
+    console.log(email);
+    mutation.mutate({ email, nickname, password, passwordConfirm });
   };
 
   return (

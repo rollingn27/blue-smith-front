@@ -3,6 +3,7 @@ import SignIn from '../user/SignIn';
 import SignUp from '../user/SignUp';
 import Home from './Home';
 import React from 'react';
+import Board from '../board/Board';
 const NotFound = () => {
   return <Link to="..">돌아가!!</Link>;
 };
@@ -18,6 +19,7 @@ const Router = () => {
           <Route path="/" element={<Home />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/board/allList" element={<Board />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

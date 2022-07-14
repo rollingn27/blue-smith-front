@@ -14,6 +14,7 @@ const Home = ({}: homeProps) => {
       <ThemeProvider theme={theme}>
         <Header />
         <div>테스트 rolling</div>
+        <div>test</div>
         <Copyright sx={{ mt: 5 }} />
       </ThemeProvider>
     </>

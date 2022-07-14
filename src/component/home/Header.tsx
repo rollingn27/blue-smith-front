@@ -7,8 +7,7 @@ import Moment from 'react-moment';
 type HeaderProps = {};
 
 const sections = [
-  { title: 'Schedule', url: '#' },
-  { title: 'Board', url: '#' },
+  { title: 'Schedule', url: '#' }
 ];
 
 const Header = ({}: HeaderProps) => {
@@ -52,6 +51,11 @@ const Header = ({}: HeaderProps) => {
             </Link>
           ))}
           <div>
+            <Link href="/board/allList">
+              <Button variant="outlined" size="small" sx={{ marginLeft: '1rem' }}>
+                Board
+              </Button>
+            </Link>
             <Link href="/signup">
               <Button variant="outlined" size="small" sx={{ marginLeft: '1rem' }}>
                 Sign up

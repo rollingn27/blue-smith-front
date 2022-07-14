@@ -19,15 +19,18 @@ import Copyright from '../home/Copyright';
 import Header from '../home/Header';
 import axios from 'axios';
 import {
-    DataGrid,
-    gridPageCountSelector,
-    gridPageSelector,
-    useGridApiContext,
-    useGridSelector,
-  } from '@mui/x-data-grid';
-  import Pagination from '@mui/material/Pagination';
+  DataGrid,
+  gridPageCountSelector,
+  gridPageSelector,
+  useGridApiContext,
+  useGridSelector,
+} from '@mui/x-data-grid';
+import Pagination from '@mui/material/Pagination';
 
 const theme = createTheme();
+
+
+
 
 function CustomPagination() {
     const apiRef = useGridApiContext();
@@ -43,52 +46,29 @@ function CustomPagination() {
       />
     );
   }
-
-
-export default function board() {
-    
-    const [ testStr, setTestStr ] = useState('');
-
-    function callback(str: any) {
-        setTestStr(str);
+  
+  export default function Write() {
+    const [data, setData] = useState(null);
+    const bringData = async() => {
+      try {
+        const boardData = await.axios.get('/board/allList');
+        setData(response.data);
+      } catch(e) {
+        console.log(e);
+      }
     }
 
-    useEffect(
-        () => {
-            axios({
-                url: '/board/allList',
-                method: 'GET'
-            }).then((res) => {
-                callback(res.data);
-            })
-        }, []
-    );
-
-    // const { data } = boardData({
-    //     dataSet: 'Commodity',
-    //     rowLength: 100,
-    //     maxColumns: 6,
-    //   });
-
     return (
-        <>      
-          <ThemeProvider theme={theme}>
-            <Header />
-            <div> 
-                {/* <Box sx={{ height: 400, width: '100%' }}>
-                    <DataGrid
-                        pagination
-                        pageSize={5}
-                        rowsPerPageOptions={[5]}
-                        components={{
-                            Pagination: CustomPagination,
-                        }}
-                        {...data}
-                    />
-                </Box>  */}
-            </div>
-            <Copyright sx={{ mt: 5 }} />
-          </ThemeProvider>
-        </>
+      <Box sx={{ height: 400, width: '100%' }}>
+        <DataGrid
+          pagination
+          pageSize={5}
+          rowsPerPageOptions={[5]}
+          components={{
+            Pagination: CustomPagination,
+          }}
+          {...data}
+        />
+      </Box>
     );
-}
+  }

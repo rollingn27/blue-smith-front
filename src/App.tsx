@@ -8,8 +8,7 @@ import { ToastContainer } from 'react-toastify'
 
 function App() {
   return (
-    <>
-      <Test />
+    <>      
       <ReactQueryDevtools initialIsOpen={false} />      
       <Router />
       <ToastContainer />

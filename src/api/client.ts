@@ -5,5 +5,11 @@ const client = axios.create({
   baseURL: 'http://localhost:8080/',  
 })
 
+const get = async () => {
+  try {
+    return await axios.get()
+  }
+  
+}
 export default client;
 

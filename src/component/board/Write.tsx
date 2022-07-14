@@ -48,19 +48,19 @@ function CustomPagination() {
   }
   
   export default function Write() {
-    const [data, setData] = useState(null);
-    const bringData = async() => {
-      try {
-        const boardData = await.axios.get('/board/allList');
-        setData(response.data);
-      } catch(e) {
-        console.log(e);
-      }
-    }
+    // const [data, setData] = useState(null);
+    // const bringData = async() => {
+    //   try {
+    //     const boardData = await.axios.get('/board/allList');
+    //     setData(response.data);
+    //   } catch(e) {
+    //     console.log(e);
+    //   }
+    // }
 
     return (
       <Box sx={{ height: 400, width: '100%' }}>
-        <DataGrid
+        {/* <DataGrid
           pagination
           pageSize={5}
           rowsPerPageOptions={[5]}
@@ -68,7 +68,7 @@ function CustomPagination() {
             Pagination: CustomPagination,
           }}
           {...data}
-        />
+        /> */}
       </Box>
     );
   }

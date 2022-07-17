@@ -3,15 +3,16 @@ import { Button, Link, Typography } from '@mui/material';
 import Toolbar from '@mui/material/Toolbar/Toolbar';
 import React from 'react';
 import Moment from 'react-moment';
+import { useQueryClient } from 'react-query';
 
 type HeaderProps = {};
 
-const sections = [
-  { title: 'Schedule', url: '#' }
-];
+const sections = [{ title: 'Schedule', url: '#' }];
 
 const Header = ({}: HeaderProps) => {
   const now = new Date();
+  const qc = useQueryClient();
+  const data: any = qc.getQueryData('user');
 
   return (
     <>
@@ -56,16 +57,26 @@ const Header = ({}: HeaderProps) => {
                 Board
               </Button>
             </Link>
-            <Link href="/signup">
-              <Button variant="outlined" size="small" sx={{ marginLeft: '1rem' }}>
-                Sign up
-              </Button>
-            </Link>
-            <Link href="/signin">
-              <Button variant="outlined" size="small" sx={{ marginLeft: '1rem' }}>
-                Sign in
-              </Button>
-            </Link>
+            {data ? (
+              <>
+                <Button variant="outlined" size="small" sx={{ marginLeft: '1rem' }}>
+                  {data.nickname}님
+                </Button>
+              </>
+            ) : (
+              <>
+                <Link href="/signup">
+                  <Button variant="outlined" size="small" sx={{ marginLeft: '1rem' }}>
+                    Sign up
+                  </Button>
+                </Link>
+                <Link href="/signin">
+                  <Button variant="outlined" size="small" sx={{ marginLeft: '1rem' }}>
+                    Sign in
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
         </Toolbar>
       </Toolbar>

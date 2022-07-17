@@ -13,6 +13,7 @@ import { AxiosError } from 'axios';
 import * as React from 'react';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { signUp } from '../../api/user/signUp';
 
@@ -22,26 +23,25 @@ import Header from '../home/Header';
 const theme = createTheme();
 
 export default function SignUp() {
-  const [email, setEmail] = useState('n28kek@hanmail.net');
-  const [nickname, setNickname] = useState('롤링');
-  const [password, setPassword] = useState('111');
-  const [passwordConfirm, setPasswordConfirm] = useState('111');
+  const navi = useNavigate();
+  const [email, setEmail] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
 
   const mutation = useMutation(signUp, {
     onSuccess: (res) => {
-      toast.success('Login Success', {
-        // type: 'success',
+      toast.info('Congratulations your sign up', {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2000,
         pauseOnHover: false,
         pauseOnFocusLoss: false,
         hideProgressBar: true,
       });
+      navi('/');
     },
     onError: (err: AxiosError) => {
-      // setLoginError(err.response?.data?.message)
-      toast.success('Login Success', {
-        // type: 'success',
+      toast.error('something wrong', {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2000,
         pauseOnHover: false,
@@ -52,14 +52,36 @@ export default function SignUp() {
     onSettled: () => {},
   });
 
+  const onChangeNickname = (e: { target: { value: React.SetStateAction<string> } }) => {
+    setNickname(e.target.value);
+  };
+
+  const onChangeEmail = (e: { target: { value: React.SetStateAction<string> } }) => {
+    setEmail(e.target.value);
+  };
+
+  const onChangePassword = (e: { target: { value: React.SetStateAction<string> } }) => {
+    setPassword(e.target.value);
+  };
+
+  const onChangePasswordConfirm = (e: { target: { value: React.SetStateAction<string> } }) => {
+    setPasswordConfirm(e.target.value);
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    setEmail('sdfadfsa');
     event.preventDefault();
 
-    const data = new FormData(event.currentTarget);
-    // setEmail('aaaa');
-    // setEmail(data.get('email') as string);
-    console.log(email);
+    if (password !== passwordConfirm) {
+      toast.error('password and passwordConfirm are not equal', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+        pauseOnHover: false,
+        pauseOnFocusLoss: false,
+        hideProgressBar: true,
+      });
+      return;
+    }
+
     mutation.mutate({ email, nickname, password, passwordConfirm });
   };
 
@@ -94,10 +116,19 @@ export default function SignUp() {
                     id="NickName"
                     label="Nick Name"
                     autoFocus
+                    onChange={onChangeNickname}
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <TextField required fullWidth id="email" label="Email Address" name="email" autoComplete="email" />
+                  <TextField
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    onChange={onChangeEmail}
+                  />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
@@ -108,6 +139,7 @@ export default function SignUp() {
                     type="password"
                     id="password"
                     autoComplete="new-password"
+                    onChange={onChangePassword}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -118,6 +150,7 @@ export default function SignUp() {
                     label="confirm Password"
                     type="password"
                     id="passwordConfirm"
+                    onChange={onChangePasswordConfirm}
                   />
                 </Grid>
               </Grid>

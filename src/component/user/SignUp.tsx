@@ -14,7 +14,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { toast } from 'react-toastify';
-import { signUp } from '../../api/user/signUp';
+import { signUp } from '../../api/user/signup';
 
 import Copyright from '../home/Copyright';
 import Header from '../home/Header';
@@ -26,16 +26,18 @@ export default function SignUp() {
   const [nickname, setNickname] = useState('롤링');
   const [password, setPassword] = useState('111');
   const [passwordConfirm, setPasswordConfirm] = useState('111');
-
+  
   const mutation = useMutation(signUp, {
     onSuccess: (res) => {
       toast.success('Login Success', {
+        
         // type: 'success',
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2000,
         pauseOnHover: false,
         pauseOnFocusLoss: false,
         hideProgressBar: true,
+
       });
     },
     onError: (err: AxiosError) => {

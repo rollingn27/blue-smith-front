@@ -3,6 +3,7 @@ import { Button, Link, Typography } from '@mui/material';
 import Toolbar from '@mui/material/Toolbar/Toolbar';
 import React from 'react';
 import Moment from 'react-moment';
+import { useQueryClient } from 'react-query';
 
 type HeaderProps = {};
 
@@ -12,6 +13,9 @@ const sections = [
 
 const Header = ({}: HeaderProps) => {
   const now = new Date();
+  const qc = useQueryClient();
+  const data = qc.getQueryData('user');
+  if (data) console.log(data);
 
   return (
     <>

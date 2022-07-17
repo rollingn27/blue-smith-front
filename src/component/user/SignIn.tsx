@@ -13,6 +13,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { AxiosError } from 'axios';
 import * as React from 'react';
+import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
@@ -29,14 +30,25 @@ export default function SignIn() {
   const [password, setPassword] = useState('12341234');
   const [form, setForm] = useState();
   const [nickname, setNickname] = useState('');
+  const navi = useNavigate();
+
   const mutation = useMutation(signIn, {
     onSuccess: (res) => {
       qc.setQueryData('user', res);
       setNickname(res.nickname);
+      navi('/');
+      toast.success('Login Success', {
+        // type: 'success',
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+        pauseOnHover: false,
+        pauseOnFocusLoss: false,
+        hideProgressBar: true,
+      });
     },
     onError: (err: AxiosError) => {
       // setLoginError(err.response?.data?.message)
-      toast.success('Login Success', {
+      toast.error('Login Failed', {
         // type: 'success',
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2000,
@@ -54,7 +66,7 @@ export default function SignIn() {
 
     mutation.mutate({ email, password });
   };
-
+  if (nickname == 'rolling') return <>{nickname}</>;
   return (
     <>
       {nickname}

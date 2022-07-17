@@ -47,10 +47,10 @@ function CustomPagination() {
 
 export default function board() {
     
-    const [ testStr, setTestStr ] = useState('');
+    const [ boardList, setBoardList ] = useState('');
 
-    function callback(str: any) {
-        setTestStr(str);
+    function callback(boardList: any) {
+        setBoardList(boardList);
     }
 
     useEffect(
@@ -64,16 +64,13 @@ export default function board() {
         }, []
     );
 
-    // const { data } = boardData({
-    //     dataSet: 'Commodity',
-    //     rowLength: 100,
-    //     maxColumns: 6,
-    //   });
+    
 
     return (
         <>      
           <ThemeProvider theme={theme}>
             <Header />
+            <div>Board Testing</div>
             <div> 
                 {/* <Box sx={{ height: 400, width: '100%' }}>
                     <DataGrid
@@ -83,7 +80,7 @@ export default function board() {
                         components={{
                             Pagination: CustomPagination,
                         }}
-                        {...data}
+                        {...boardList}
                     />
                 </Box>  */}
             </div>

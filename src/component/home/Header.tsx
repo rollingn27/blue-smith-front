@@ -7,16 +7,13 @@ import { useQueryClient } from 'react-query';
 
 type HeaderProps = {};
 
-const sections = [
-  { title: 'Schedule', url: '#' }
-];
+const sections = [{ title: 'Schedule', url: '#' }];
 
 const Header = ({}: HeaderProps) => {
   const now = new Date();
   const qc = useQueryClient();
-  const data = qc.getQueryData('user');
-  if (data) console.log(data);
-
+  const data: any = qc.getQueryData('user');
+  
   return (
     <>
       <Toolbar sx={{ borderBottom: 1, borderColor: 'divider', padding: '1.5rem 0.5rem' }}>
@@ -60,16 +57,26 @@ const Header = ({}: HeaderProps) => {
                 Board
               </Button>
             </Link>
-            <Link href="/signup">
-              <Button variant="outlined" size="small" sx={{ marginLeft: '1rem' }}>
-                Sign up
-              </Button>
-            </Link>
-            <Link href="/signin">
-              <Button variant="outlined" size="small" sx={{ marginLeft: '1rem' }}>
-                Sign in
-              </Button>
-            </Link>
+            {data ? (
+              <>
+                <Button variant="outlined" size="small" sx={{ marginLeft: '1rem' }}>
+                  {data.nickname}님
+                </Button>
+              </>
+            ) : (
+              <>
+                <Link href="/signup">
+                  <Button variant="outlined" size="small" sx={{ marginLeft: '1rem' }}>
+                    Sign up
+                  </Button>
+                </Link>
+                <Link href="/signin">
+                  <Button variant="outlined" size="small" sx={{ marginLeft: '1rem' }}>
+                    Sign in
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
         </Toolbar>
       </Toolbar>

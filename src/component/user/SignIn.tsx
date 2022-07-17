@@ -16,6 +16,7 @@ import * as React from 'react';
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { signIn } from '../../api/user/signIn';
 import Copyright from '../home/Copyright';
@@ -26,30 +27,24 @@ const theme = createTheme();
 export default function SignIn() {
   const qc = useQueryClient();
   const [loginError, setLoginError] = useState('');
-  const [email, setEmail] = useState('n27kek@knou.ac.kr');
-  const [password, setPassword] = useState('12341234');
-  const [form, setForm] = useState();
-  const [nickname, setNickname] = useState('');
-  const navi = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const mutation = useMutation(signIn, {
     onSuccess: (res) => {
       qc.setQueryData('user', res);
-      setNickname(res.nickname);
-      navi('/');
-      toast.success('Login Success', {
-        // type: 'success',
+      console.log(res);
+      toast.info('login success', {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2000,
         pauseOnHover: false,
         pauseOnFocusLoss: false,
         hideProgressBar: true,
       });
+      navi('/');
     },
     onError: (err: AxiosError) => {
-      // setLoginError(err.response?.data?.message)
-      toast.error('Login Failed', {
-        // type: 'success',
+      toast.error('err', {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2000,
         pauseOnHover: false,
@@ -60,6 +55,14 @@ export default function SignIn() {
     onSettled: () => {},
   });
 
+  const onChangeEmail = (e: { target: { value: React.SetStateAction<string> } }) => {
+    setEmail(e.target.value);
+  };
+
+  const onChangePassword = (e: { target: { value: React.SetStateAction<string> } }) => {
+    setPassword(e.target.value);
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -69,7 +72,6 @@ export default function SignIn() {
   if (nickname == 'rolling') return <>{nickname}</>;
   return (
     <>
-      {nickname}
       <Header />
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
@@ -98,6 +100,7 @@ export default function SignIn() {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                onChange={onChangeEmail}
               />
               <TextField
                 margin="normal"
@@ -108,6 +111,7 @@ export default function SignIn() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={onChangePassword}
               />
               <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
               <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>

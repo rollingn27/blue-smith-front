@@ -13,6 +13,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { AxiosError } from 'axios';
 import * as React from 'react';
+import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
@@ -28,7 +29,6 @@ export default function SignIn() {
   const [loginError, setLoginError] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navi = useNavigate();
 
   const mutation = useMutation(signIn, {
     onSuccess: (res) => {
@@ -69,7 +69,7 @@ export default function SignIn() {
 
     mutation.mutate({ email, password });
   };
-
+  if (nickname == 'rolling') return <>{nickname}</>;
   return (
     <>
       <Header />

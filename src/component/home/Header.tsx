@@ -13,7 +13,7 @@ const Header = ({}: HeaderProps) => {
   const now = new Date();
   const qc = useQueryClient();
   const data: any = qc.getQueryData('user');
-
+  
   return (
     <>
       <Toolbar sx={{ borderBottom: 1, borderColor: 'divider', padding: '1.5rem 0.5rem' }}>

@@ -6,5 +6,11 @@ const client = axios.create({
 
 })
 
+// const get = async () => {
+//   try {
+//     return await axios.get()
+//   }d
+  
+// }
 export default client;
 

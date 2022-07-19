@@ -18,18 +18,39 @@ import { signUp } from '../../api/user/signup';
 import Copyright from '../home/Copyright';
 import Header from '../home/Header';
 import axios from 'axios';
+import {
+    DataGrid,
+    gridPageCountSelector,
+    gridPageSelector,
+    useGridApiContext,
+    useGridSelector,
+  } from '@mui/x-data-grid';
+  import Pagination from '@mui/material/Pagination';
 
 const theme = createTheme();
 
-
+function CustomPagination() {
+    const apiRef = useGridApiContext();
+    const page = useGridSelector(apiRef, gridPageSelector);
+    const pageCount = useGridSelector(apiRef, gridPageCountSelector);
+  
+    return (
+      <Pagination
+        color="primary"
+        count={pageCount}
+        page={page + 1}
+        onChange={(event, value) => apiRef.current.setPage(value - 1)}
+      />
+    );
+  }
 
 
 export default function board() {
     
-    const [ testStr, setTestStr ] = useState('');
+    const [ boardList, setBoardList ] = useState('');
 
-    function callback(str: any) {
-        setTestStr(str);
+    function callback(boardList: any) {
+        setBoardList(boardList);
     }
 
     useEffect(
@@ -43,11 +64,26 @@ export default function board() {
         }, []
     );
 
+    
+
     return (
         <>      
           <ThemeProvider theme={theme}>
             <Header />
-            <div> {testStr} </div>
+            <div>Board Testing</div>
+            <div> 
+                {/* <Box sx={{ height: 400, width: '100%' }}>
+                    <DataGrid
+                        pagination
+                        pageSize={5}
+                        rowsPerPageOptions={[5]}
+                        components={{
+                            Pagination: CustomPagination,
+                        }}
+                        {...boardList}
+                    />
+                </Box>  */}
+            </div>
             <Copyright sx={{ mt: 5 }} />
           </ThemeProvider>
         </>

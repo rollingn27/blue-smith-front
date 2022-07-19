@@ -15,7 +15,7 @@ import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { signUp } from '../../api/user/signUp';
+import { signUp } from '../../api/user/signup';
 
 import Copyright from '../home/Copyright';
 import Header from '../home/Header';
@@ -37,6 +37,7 @@ export default function SignUp() {
         pauseOnHover: false,
         pauseOnFocusLoss: false,
         hideProgressBar: true,
+
       });
       navi('/');
     },
